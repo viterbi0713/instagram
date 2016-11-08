@@ -13,7 +13,7 @@ import FirebaseAuth
 import SVProgressHUD
 
 
-class settingViewController: UIViewController {
+class SettingViewController: UIViewController {
     
     @IBOutlet weak var displayNameTextField: UITextField!
     
