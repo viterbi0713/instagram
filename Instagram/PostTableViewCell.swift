@@ -10,32 +10,26 @@ import UIKit
 
 class PostTableViewCell: UITableViewCell {
     
-    
     @IBOutlet weak var postImageView: UIImageView!
-    
     @IBOutlet weak var likeButton: UIButton!
-    
     @IBOutlet weak var likeLabel: UILabel!
     
+    @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 
-    @IBOutlet weak var captionLabel: UILabel!
-    
-    @IBAction func commentButton(sender: AnyObject) {
-    }
+    @IBOutlet weak var commentButton: UIButton!
     
     @IBOutlet weak var commentLabel: UILabel!
-    
-    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -59,6 +53,7 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "like_none")
             likeButton.setImage(buttonImage, forState: UIControlState.Normal)
         }
+        /* Added for Kadai */
+        commentLabel.text = "\(postData.comment!)"
     }
-    
 }

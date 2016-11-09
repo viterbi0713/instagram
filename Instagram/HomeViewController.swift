@@ -25,6 +25,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.delegate = self
         tableView.dataSource = self
         
+        
+        
+        
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "Cell")
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -107,6 +110,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(handleButton(_:event:)), forControlEvents:  UIControlEvents.TouchUpInside)
         
+        /* Added for Kadai */
+        cell.commentButton.addTarget(self, action:#selector(handleComment( _:event:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
         return cell
     }
     
@@ -119,6 +125,37 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // セルをタップされたら何もせずに選択状態を解除する
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    /* Added for Kadai */
+    func handleComment(sender: UIButton, event:UIEvent) {
+        
+        let touch = event.allTouches()?.first
+        let point = touch!.locationInView(self.tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(point)
+        
+        
+        let popUp = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("commentPopUpID") as! CommentPopUpViewController
+        self.addChildViewController(popUp)
+        popUp.view.frame = self.view.frame
+        self.view.addSubview(popUp.view)
+        popUp.didMoveToParentViewController(self)
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        // Firebaseに保存するデータの準備
+        
+        let imageString = postData.imageString
+        let name = postData.name
+        let caption = postData.caption
+        let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
+        let likes = postData.likes
+        let comment = postData.comment
+        
+        // 辞書を作成してFirebaseに保存する
+        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment!]
+        let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
+        postRef.child(postData.id!).setValue(post)
+    } 
     
     // セル内のボタンがタップされた時に呼ばれるメソッド
     func handleButton(sender: UIButton, event:UIEvent) {
@@ -154,10 +191,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
             let likes = postData.likes
             
+            
+            let comment = postData.comment
+            
+            
             // 辞書を作成してFirebaseに保存する
-            let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes]
+            /* Added for Kadai */
+            let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment!]
+            
+            
+            //let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes]
             let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
             postRef.child(postData.id!).setValue(post)
         }
     }
+    
 }

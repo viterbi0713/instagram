@@ -124,10 +124,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5sz-hS-0OA" firstAttribute="top" secondItem="fFW-Hu-iDu" secondAttribute="bottom" id="6Zy-dw-Bxg"/>
-                            <constraint firstItem="Nf2-HY-18F" firstAttribute="top" secondItem="5sz-hS-0OA" secondAttribute="bottom" id="WZf-7s-wYm"/>
-                            <constraint firstItem="5sz-hS-0OA" firstAttribute="leading" secondItem="i2w-Zc-NNz" secondAttribute="leadingMargin" id="Yuv-IM-9ht"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5sz-hS-0OA" secondAttribute="trailing" id="dWO-pC-qMy"/>
+                            <constraint firstItem="5sz-hS-0OA" firstAttribute="leading" secondItem="i2w-Zc-NNz" secondAttribute="leadingMargin" id="41j-8u-k8s"/>
+                            <constraint firstItem="5sz-hS-0OA" firstAttribute="top" secondItem="fFW-Hu-iDu" secondAttribute="bottom" id="XfA-gh-123"/>
+                            <constraint firstItem="5sz-hS-0OA" firstAttribute="trailing" secondItem="i2w-Zc-NNz" secondAttribute="trailingMargin" id="nuk-TQ-eh9"/>
+                            <constraint firstItem="Nf2-HY-18F" firstAttribute="top" secondItem="5sz-hS-0OA" secondAttribute="bottom" id="qKx-iW-seh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -207,6 +207,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8BA-iU-f3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-123" y="829"/>
+        </scene>
+        <!--Comment Pop Up View Controller-->
+        <scene sceneID="B91-3O-G5x">
+            <objects>
+                <viewController storyboardIdentifier="commentPopUpID" id="zum-3F-VAa" customClass="CommentPopUpViewController" customModule="Instagram" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="byA-YL-ra2"/>
+                        <viewControllerLayoutGuide type="bottom" id="fdb-kX-YNr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s9B-yN-luA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qkg-Il-ADQ">
+                                <rect key="frame" x="125" y="157" width="350" height="286"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAc-Qh-Rv6">
+                                        <rect key="frame" x="152" y="251" width="46" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="52g-qX-Wmd"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="確定"/>
+                                        <connections>
+                                            <action selector="closePopUp:" destination="zum-3F-VAa" eventType="touchUpInside" id="SXH-AY-hSH"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="コメントする" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDL-F2-Wx9">
+                                        <rect key="frame" x="124" y="10" width="102" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a2L-MQ-DFV">
+                                        <rect key="frame" x="10" y="41" width="330" height="180"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="180" id="1ZA-gf-hfa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="286" id="6IU-tj-55T"/>
+                                    <constraint firstAttribute="trailing" secondItem="a2L-MQ-DFV" secondAttribute="trailing" constant="10" id="7ZC-9l-dhI"/>
+                                    <constraint firstItem="FDL-F2-Wx9" firstAttribute="centerX" secondItem="qkg-Il-ADQ" secondAttribute="centerX" id="ERN-ON-eQ5"/>
+                                    <constraint firstItem="a2L-MQ-DFV" firstAttribute="top" secondItem="FDL-F2-Wx9" secondAttribute="bottom" constant="10" id="IeP-fU-aP0"/>
+                                    <constraint firstItem="a2L-MQ-DFV" firstAttribute="centerX" secondItem="qkg-Il-ADQ" secondAttribute="centerX" id="MVM-5p-kwo"/>
+                                    <constraint firstItem="qAc-Qh-Rv6" firstAttribute="centerX" secondItem="a2L-MQ-DFV" secondAttribute="centerX" id="T1B-td-kiz"/>
+                                    <constraint firstItem="FDL-F2-Wx9" firstAttribute="top" secondItem="qkg-Il-ADQ" secondAttribute="top" constant="10" id="nBH-SK-vQ6"/>
+                                    <constraint firstItem="a2L-MQ-DFV" firstAttribute="leading" secondItem="qkg-Il-ADQ" secondAttribute="leading" constant="10" id="vgL-8G-b0M"/>
+                                    <constraint firstAttribute="width" constant="350" id="xOf-wC-Jh0"/>
+                                    <constraint firstItem="qAc-Qh-Rv6" firstAttribute="top" secondItem="a2L-MQ-DFV" secondAttribute="bottom" constant="30" id="z1e-8z-19M"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qkg-Il-ADQ" firstAttribute="centerX" secondItem="s9B-yN-luA" secondAttribute="centerX" id="9Xi-zk-9HH"/>
+                            <constraint firstItem="qkg-Il-ADQ" firstAttribute="centerY" secondItem="s9B-yN-luA" secondAttribute="centerY" id="aSb-KJ-70h"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="inputTextField" destination="a2L-MQ-DFV" id="u1A-WO-dKT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hU4-p8-2hI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-127" y="1645"/>
         </scene>
         <!--Post View Controller-->
         <scene sceneID="gzl-ub-gPq">
