@@ -25,33 +25,9 @@ class CommentPopUpViewController: UIViewController {
     
     @IBAction func closePopUp(sender: AnyObject) {
         
-        //print("received ip.row = \(ip!.row)")
-        
         self.delgate?.addFireBase(inputTextField.text!, indexPath: ip)
         self.dismissViewControllerAnimated(true) {}
         
-//        let postData = postArray[ip!.row]
-//
-//        
-//        var comment:String! = inputTextField.text!
-//        if comment == "" {
-//            comment = postData.comment!
-//        }
-//        
-//        let imageString = postData.imageString
-//        let name = postData.name
-//        let caption = postData.caption
-//        let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
-//        let likes = postData.likes
-//        
-//        // 辞書を作成してFirebaseに保存する
-//        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment!]
-//        let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
-//        postRef.child(postData.id!).setValue(post)
-//        
-//        /* UI Animation */
-//        self.removeAnime()
-        //self.view.removeFromSuperview()
     }
 
     override func viewDidLoad() {
@@ -59,9 +35,7 @@ class CommentPopUpViewController: UIViewController {
 
         self.view.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.7)
         self.showAnime()
-        
-        
-        // Do any additional setup after loading the view.
+
     }
 
         
@@ -89,15 +63,4 @@ class CommentPopUpViewController: UIViewController {
                 }
         });
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

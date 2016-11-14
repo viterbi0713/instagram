@@ -145,38 +145,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         popUp.ip = indexPath
         popUp.delgate = self
         self.presentViewController(popUp, animated: true) {}
-        
-//        self.addChildViewController(popUp)
-//        popUp.view.frame = self.view.frame
-//        
-//        
-//        self.view.addSubview(popUp.view)
-//        popUp.didMoveToParentViewController(self)
-//        
-//        // 配列からタップされたインデックスのデータを取り出す
-//        let postData = postArray[indexPath!.row]
-//        // Firebaseに保存するデータの準備
-//        
-//        let imageString = postData.imageString
-//        let name = postData.name
-//        let caption = postData.caption
-//        let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
-//        let likes = postData.likes
-//        let comment = postData.comment
-//        
-//        // 辞書を作成してFirebaseに保存する
-//        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment!]
-//        let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
-//        postRef.child(postData.id!).setValue(post)
-        
     }
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        let commentViewController = segue.destinationViewController as! CommentPopUpViewController
-//        print("ip at Segue = \(self.ip)")
-//        commentViewController.ip = self.ip
-//    }
-
     
     // セル内のボタンがタップされた時に呼ばれるメソッド
     func handleButton(sender: UIButton, event:UIEvent) {
@@ -238,10 +207,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             print("user id -- " + uid)
         }
         let postData = postArray[indexPath.row]
+
         //        // Firebaseに保存するデータの準備
-        //
-        // 
-        
         let imageString = postData.imageString
         let name = postData.name
         let caption = postData.caption
