@@ -54,6 +54,11 @@ class PostTableViewCell: UITableViewCell {
             likeButton.setImage(buttonImage, forState: UIControlState.Normal)
         }
         /* Added for Kadai */
-        commentLabel.text = "\(postData.comment!)"
+        if postData.comment != "" {
+        commentLabel.text = "\(postData.name!): \(postData.comment!)"
+        }
+        else {
+            commentLabel.text = ""
+        }
     }
 }

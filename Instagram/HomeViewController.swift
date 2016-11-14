@@ -10,11 +10,13 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CommentPopUpViewControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var postArray: [PostData] = []
+    var ip: NSIndexPath!
+    
     
     // FIRDatabaseのobserveEventの登録状態を表す
     var observing = false
@@ -132,30 +134,49 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let touch = event.allTouches()?.first
         let point = touch!.locationInView(self.tableView)
         let indexPath = tableView.indexPathForRowAtPoint(point)
+        self.ip = indexPath
         
+        print("indexPath.row = \(indexPath!.row)")
+        print("self.ip.row = \(self.ip.row)")
         
-        let popUp = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("commentPopUpID") as! CommentPopUpViewController
-        self.addChildViewController(popUp)
-        popUp.view.frame = self.view.frame
-        self.view.addSubview(popUp.view)
-        popUp.didMoveToParentViewController(self)
+        let popUp = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewControllerWithIdentifier("commentPopUpID") as! CommentPopUpViewController
         
-        // 配列からタップされたインデックスのデータを取り出す
-        let postData = postArray[indexPath!.row]
-        // Firebaseに保存するデータの準備
+        popUp.ip = indexPath
+        popUp.delgate = self
+        self.presentViewController(popUp, animated: true) {}
         
-        let imageString = postData.imageString
-        let name = postData.name
-        let caption = postData.caption
-        let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
-        let likes = postData.likes
-        let comment = postData.comment
+//        self.addChildViewController(popUp)
+//        popUp.view.frame = self.view.frame
+//        
+//        
+//        self.view.addSubview(popUp.view)
+//        popUp.didMoveToParentViewController(self)
+//        
+//        // 配列からタップされたインデックスのデータを取り出す
+//        let postData = postArray[indexPath!.row]
+//        // Firebaseに保存するデータの準備
+//        
+//        let imageString = postData.imageString
+//        let name = postData.name
+//        let caption = postData.caption
+//        let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
+//        let likes = postData.likes
+//        let comment = postData.comment
+//        
+//        // 辞書を作成してFirebaseに保存する
+//        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment!]
+//        let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
+//        postRef.child(postData.id!).setValue(post)
         
-        // 辞書を作成してFirebaseに保存する
-        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment!]
-        let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
-        postRef.child(postData.id!).setValue(post)
-    } 
+    }
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let commentViewController = segue.destinationViewController as! CommentPopUpViewController
+//        print("ip at Segue = \(self.ip)")
+//        commentViewController.ip = self.ip
+//    }
+
     
     // セル内のボタンがタップされた時に呼ばれるメソッド
     func handleButton(sender: UIButton, event:UIEvent) {
@@ -164,6 +185,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let touch = event.allTouches()?.first
         let point = touch!.locationInView(self.tableView)
         let indexPath = tableView.indexPathForRowAtPoint(point)
+        
+        print ("IndexPath.row for いいね: \(indexPath!.row)")
         
         // 配列からタップされたインデックスのデータを取り出す
         let postData = postArray[indexPath!.row]
@@ -206,4 +229,27 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    func addFireBase(comment: String, indexPath: NSIndexPath) {
+        // Firebaseに追加する処理
+        print(comment)
+        print(indexPath.row)
+        
+        if let uid = FIRAuth.auth()?.currentUser?.uid {
+            print("user id -- " + uid)
+        }
+        let postData = postArray[indexPath.row]
+        //        // Firebaseに保存するデータの準備
+        //
+        // 
+        
+        let imageString = postData.imageString
+        let name = postData.name
+        let caption = postData.caption
+        let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
+        let likes = postData.likes
+        
+        //        // 辞書を作成してFirebaseに保存する
+        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment]
+        let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
+        postRef.child(postData.id!).setValue(post)    }
 }

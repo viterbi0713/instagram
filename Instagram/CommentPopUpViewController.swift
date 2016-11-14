@@ -12,14 +12,45 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+protocol CommentPopUpViewControllerDelegate {
+    func addFireBase(comment: String, indexPath: NSIndexPath)
+}
+
 class CommentPopUpViewController: UIViewController {
-    
+    var delgate:CommentPopUpViewControllerDelegate?
     
     @IBOutlet weak var inputTextField: UITextField!
+    var postArray: [PostData] = []
+    var ip: NSIndexPath!
     
     @IBAction func closePopUp(sender: AnyObject) {
         
-        self.removeAnime()
+        //print("received ip.row = \(ip!.row)")
+        
+        self.delgate?.addFireBase(inputTextField.text!, indexPath: ip)
+        self.dismissViewControllerAnimated(true) {}
+        
+//        let postData = postArray[ip!.row]
+//
+//        
+//        var comment:String! = inputTextField.text!
+//        if comment == "" {
+//            comment = postData.comment!
+//        }
+//        
+//        let imageString = postData.imageString
+//        let name = postData.name
+//        let caption = postData.caption
+//        let time = (postData.date?.timeIntervalSinceReferenceDate)! as NSTimeInterval
+//        let likes = postData.likes
+//        
+//        // 辞書を作成してFirebaseに保存する
+//        let post = ["caption": caption!, "image": imageString!, "name": name!, "time": time, "likes": likes, "comment": comment!]
+//        let postRef = FIRDatabase.database().reference().child(CommonConst.PostPATH)
+//        postRef.child(postData.id!).setValue(post)
+//        
+//        /* UI Animation */
+//        self.removeAnime()
         //self.view.removeFromSuperview()
     }
 
